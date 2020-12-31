@@ -10,16 +10,19 @@ class Employee {
         this.email = email;
     }
     getName() {
-
+        return this.name
     }
     getId() {
-
+        return this.id
     }
     getEmail() {
-
+        return this.email
     }
-    getRole()
+    getRole(){
+        return "Employee"
+    }
 }
+module.exports = Employee
 // name
 // id
 // email
