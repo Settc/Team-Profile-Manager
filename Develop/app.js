@@ -21,6 +21,32 @@ const employees = []
 
 const questions = () => {
 
+    employeeType = () => {
+        inquirer.prompt([
+            {
+                type: "list",
+                name: "employeeType",
+                message: "Would you like to add another employee type?",
+                choices: ["none", "manager", "engineer", "intern"]
+            }
+        ]).then(answers => {
+        switch (answers.employeeType) {
+            case "manager":
+                getManager()
+                break
+            case "engineer":
+                getEngineer()
+                break
+            case "intern":
+                getIntern()
+                break
+            case "none":
+                console.log("Generating page...")
+                //render()
+        }
+        })
+    }
+
     getManager = () => {
         console.log("Teams are required to have at least one manager")
         inquirer.prompt([
@@ -44,34 +70,70 @@ const questions = () => {
                 name: "officeNumber",
                 message: "Input manager office number:",
             },
-            {
-                type: "list",
-                name: "employeeType",
-                message: "Would you like to add another employee type?",
-                choices: ["none", "manager", "engineer", "intern"]
-            }
+            
         ]).then(answers => {
             const manager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber)
             employees.push(manager)
-            switch (answers.employeeType) {
-                case "manager":
-                    getManager()
-                    break
-                case "engineer":
-                    getEngineer()
-                    break
-                case "intern":
-                    getIntern()
-                    break
-                case "none":
-                    console.log("Generating page")
-                
-            }
-            // prompt.next([
-
-            // ])
+                       
         })
     }
+
+    getEngineer = () => {
+        
+        inquirer.prompt([
+            {
+                type: "input",
+                name: "name",
+                message: "Please input the name of the engineer:",
+            },
+            {
+                type: "input",
+                name: "id",
+                message: "Input engineer ID:",
+            },
+            {
+                type: "input",
+                name: "email",
+                message: "Input engineer email:",
+            },
+            {
+                type: "input",
+                name: "gitHub",
+                message: "Input github address:",
+            },
+            
+        ])
+
+    }
+
+        getIntern = () => {
+            
+            inquirer.prompt([
+                {
+                    type: "input",
+                    name: "name",
+                    message: "Please input the name of the intern:",
+                },
+                {
+                    type: "input",
+                    name: "id",
+                    message: "Input intern ID:",
+                },
+                {
+                    type: "input",
+                    name: "email",
+                    message: "Input intern email:",
+                },
+                {
+                    type: "input",
+                    name: "school",
+                    message: "Input intern's school:",
+                }
+
+            ])
+
+        }
+         
 }
 questions()
 
