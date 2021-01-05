@@ -5,9 +5,10 @@
 
 class Employee {
     constructor(name, id, email) {
-        this.name = name;
-        this.id = id;
-        this.email = email;
+        this.name = name
+        this.id = id
+        this.email = email
+        this.role = "employee"
     }
     getName() {
         return this.name
@@ -18,9 +19,9 @@ class Employee {
     getEmail() {
         return this.email
     }
-    // getRole(){
-    //     return "Employee"
-    // }
+    getRole(){
+        return this.role
+    }
 }
 module.exports = Employee
 // name

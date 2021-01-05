@@ -5,22 +5,24 @@ const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
 
+//Defining the path in which app.js generates the html page
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
+//Render takes the inquirer prompt answers and inputs them into the html template,
+//then the file system module writes the finished html to a file "team.html"
 const render = require("./lib/htmlRenderer");
 const { prompts } = require("inquirer");
 
+//This variable stores the employee objects, each value being pushed into the templates
+const team = []
 
-// Write code to use inquirer to gather information about the development team members,
-// and to create objects for each team member (using the correct classes as blueprints!)
-
-
-const employees = []
-
-
+//The inquirer prompts which get the necessary values from the user
 const questions = () => {
 
+//At the end of each question prompting chain, the employeeType function is called to 
+//see if the user would like to continue. If not, it will end the program and call the render
+//function to generate the final html
     employeeType = () => {
         inquirer.prompt([
             {
@@ -42,11 +44,17 @@ const questions = () => {
                 break
             case "none":
                 console.log("Generating page...")
-                fs.writeFileSync(outputPath, render(employees))
+                console.log(team)
+                fs.writeFile(outputPath, render(team), (err) =>
+                    err ? console.error(err) : console.log("Page succesfully rendered"))
+                break
+                
         }
         })
     }
 
+//At the end of this and the other prompt chains, a new object is created using the answers provided by the user,
+//then the object is pushed into the "employees" array.
     getManager = () => {
         console.log("Teams are required to have at least one manager")
         inquirer.prompt([
@@ -72,7 +80,7 @@ const questions = () => {
             }          
         ]).then(answers => {
             const manager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber)
-            employees.push(manager)
+            team.push(manager)
             employeeType()                       
         })
     }
@@ -102,8 +110,8 @@ const questions = () => {
             },
             
         ]).then(answers => {
-            const engineer = new Engineer(answers.name, answers.id, answers.email, answers.officeNumber)
-            employees.push(engineer)
+            const engineer = new Engineer(answers.name, answers.id, answers.email, answers.gitHub)
+            team.push(engineer)
             employeeType()  
         })
 
@@ -134,8 +142,8 @@ const questions = () => {
                 }
 
             ]).then(answers => {
-                const intern = new Intern(answers.name, answers.id, answers.email, answers.officeNumber)
-                employees.push(intern)
+                const intern = new Intern(answers.name, answers.id, answers.email, answers.school)
+                team.push(intern)
                 employeeType()  
             })
 
@@ -144,22 +152,3 @@ const questions = () => {
 }
 
 questions()
-// After the user has input all employees desired, call the `render` function (required
-// above) and pass in an array containing all employee objects; the `render` function will
-// generate and return a block of HTML including templated divs for each employee!
-
-// After you have your html, you're now ready to create an HTML file using the HTML
-// returned from the `render` function. Now write it to a file named `team.html` in the
-// `output` folder. You can use the variable `outputPath` above target this location.
-// Hint: you may need to check if the `output` folder exists and create it if it
-// does not.
-
-// HINT: each employee type (manager, engineer, or intern) has slightly different
-// information; write your code to ask different questions via inquirer depending on
-// employee type.
-
-// HINT: make sure to build out your classes first! Remember that your Manager, Engineer,
-// and Intern classes should all extend from a class named Employee; see the directions
-// for further information. Be sure to test out each class and verify it generates an
-// object with the correct structure and methods. This structure will be crucial in order
-// for the provided `render` function to work! ```

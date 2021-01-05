@@ -21,13 +21,14 @@ class Intern extends Employee {
         this.name = name
         this.id = id
         this.email = email
+        this.role = "intern"
     }
     getSchool() {
         return this.school
     }
 
     getRole() {
-        return "Intern"
+        return this.role
     }
 }
 

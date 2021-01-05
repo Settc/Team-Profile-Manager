@@ -8,6 +8,7 @@ class Manager extends Employee {
         this.name = name
         this.id = id
         this.email = email
+        this.role = "manager"
     }
 
     getOfficeNumber() {
@@ -15,7 +16,7 @@ class Manager extends Employee {
     }
    
     getRole() {
-        return "Manager"
+        return this.role
     }
 }
 

@@ -21,13 +21,14 @@ class Engineer extends Employee {
         this.name = name
         this.id = id
         this.email = email
+        this.role = "engineer"
     }
     getGithub() {
         return this.github
     }
 
     getRole() {
-        return "Engineer"
+        return this.role
     }
 }
 
