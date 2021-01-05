@@ -4,7 +4,7 @@
 ## Description
 [!License](https://img.shields.io/badge/License-MIT-blue.svg)
     This program prompts users for information on the members of their team, including managers, interns, and engineers. 
-    Each employee type has unique information dynamically generated onto the html page.<br/> Github repository link: https://github.com/Settc/Team-Profile-Manager
+    Each employee type has unique information dynamically generated onto the html page.
 ## Table of Contents
 
 * [Installation](#Installation)
