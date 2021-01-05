@@ -9,35 +9,71 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
+const { prompts } = require("inquirer");
 
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
+
+const employees = []
+
+
 const questions = () => {
-    return inquirer.prompt([
-        {
-            type: "input",
-            name: "name",
-            message: "Please input the name of the team's manager:",
-        },
-        {
-            type: "input",
-            name: "id",
-            message: "",
-        },
-        {
-            type: "input",
-            name: "email",
-            message: "",
-        },
-        {
-            type: "input",
-            name: "officeNumber",
-            message: "",
-        }
-    ])
+
+    getManager = () => {
+        console.log("Teams are required to have at least one manager")
+        inquirer.prompt([
+            {
+                type: "input",
+                name: "name",
+                message: "Please input the name of the team's manager:",
+            },
+            {
+                type: "input",
+                name: "id",
+                message: "Input manager ID:",
+            },
+            {
+                type: "input",
+                name: "email",
+                message: "Input manager email:",
+            },
+            {
+                type: "input",
+                name: "officeNumber",
+                message: "Input manager office number:",
+            },
+            {
+                type: "list",
+                name: "employeeType",
+                message: "Would you like to add another employee type?",
+                choices: ["none", "manager", "engineer", "intern"]
+            }
+        ]).then(answers => {
+            const manager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber)
+            employees.push(manager)
+            switch (answers.employeeType) {
+                case "manager":
+                    getManager()
+                    break
+                case "engineer":
+                    getEngineer()
+                    break
+                case "intern":
+                    getIntern()
+                    break
+                case "none":
+                    console.log("Generating page")
+                
+            }
+            // prompt.next([
+
+            // ])
+        })
+    }
 }
+questions()
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
