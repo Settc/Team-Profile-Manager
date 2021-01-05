@@ -42,7 +42,7 @@ const questions = () => {
                 break
             case "none":
                 console.log("Generating page...")
-                //render()
+                render(employees)
         }
         })
     }
@@ -69,12 +69,11 @@ const questions = () => {
                 type: "input",
                 name: "officeNumber",
                 message: "Input manager office number:",
-            },
-            
+            }          
         ]).then(answers => {
             const manager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber)
             employees.push(manager)
-                       
+            employeeType()                       
         })
     }
 
@@ -102,7 +101,11 @@ const questions = () => {
                 message: "Input github address:",
             },
             
-        ])
+        ]).then(answers => {
+            const engineer = new Engineer(answers.name, answers.id, answers.email, answers.officeNumber)
+            employees.push(engineer)
+            employeeType()  
+        })
 
     }
 
@@ -130,13 +133,17 @@ const questions = () => {
                     message: "Input intern's school:",
                 }
 
-            ])
+            ]).then(answers => {
+                const intern = new Intern(answers.name, answers.id, answers.email, answers.officeNumber)
+                employees.push(intern)
+                employeeType()  
+            })
 
         }
-         
+    getManager() 
 }
-questions()
 
+questions()
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
