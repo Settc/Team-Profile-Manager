@@ -42,7 +42,7 @@ const questions = () => {
                 break
             case "none":
                 console.log("Generating page...")
-                render(employees)
+                fs.writeFileSync(outputPath, render(employees))
         }
         })
     }
